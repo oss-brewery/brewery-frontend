@@ -1,0 +1,55 @@
+= brewery-frontend
+
+
+== Development Setup
+
+=== Yarn installation
+
+.via asdf
+[source=bash]
+----
+asdf plugin-add yarn
+asdf install yarn latest
+asdf local yarn 1.22.10
+asdf local nodejs 13.11.0
+yarn global add @vue/cli
+
+ $ cd brewery-frontend
+ $ yarn serve
+
+----
+
+
+
+.Project setup
+
+```
+yarn install
+```
+
+.Compiles and hot-reloads for development
+
+```
+yarn serve
+```
+
+.Compiles and minifies for production
+
+```
+yarn build
+```
+
+.Lints and fixes files
+
+```
+yarn lint
+```
+
+
+
+
+
+.Development Links
+
+* https://cli.vuejs.org/config/[Customize configuration]
+* https://v3.vuejs.org/guide/introduction.html[vue3 doku]
