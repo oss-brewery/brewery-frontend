@@ -15,7 +15,18 @@ asdf local nodejs 13.11.0
 yarn global add @vue/cli
 
  $ cd brewery-frontend
+ $ yarn install
  $ yarn serve
+
+----
+
+
+.Start development via
+[source=bash]
+----
+
+ cd brewery-frontend
+ yarn serve
 
 ----
 
@@ -25,6 +36,12 @@ yarn global add @vue/cli
 
 ```
 yarn install
+```
+
+
+.Install deps
+```
+yarn add $package-name
 ```
 
 .Compiles and hot-reloads for development
@@ -46,10 +63,17 @@ yarn lint
 ```
 
 
+=== Debugger Setup via chrome / chromium for VSCode
+
+.Install JS - Debugger in VSCode
+ 
+https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome
 
 
 
-.Development Links
+
+=== Development Links
 
 * https://cli.vuejs.org/config/[Customize configuration]
 * https://v3.vuejs.org/guide/introduction.html[vue3 doku]
+* https://www.websocket.org/echo.html[test websockets]
