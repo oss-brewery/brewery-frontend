@@ -66,14 +66,32 @@ yarn lint
 === Debugger Setup via chrome / chromium for VSCode
 
 .Install JS - Debugger in VSCode
+
+https://vi.vuejs.org/v2/cookbook/debugging-in-vscode.html
  
 https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome
 
 
+https://github.com/Microsoft/vscode-chrome-debug
+https://github.com/Microsoft/vscode-recipes/blob/master/vuejs-cli/README.md
+
+
+
+=== Developing Charts 
+
+https://www.chartjs.org/docs/latest/getting-started/installation.html
 
 
 === Development Links
-
+* https://v3.vuejs.org/guide/typescript-support.html#editor-support
 * https://cli.vuejs.org/config/[Customize configuration]
 * https://v3.vuejs.org/guide/introduction.html[vue3 doku]
 * https://www.websocket.org/echo.html[test websockets]
+
+* https://github.com/latovicalmin/vuejs-websockets-example/blob/master/src/services/webSocketService.js[Websocket sample]
+
+* https://github.com/nathantsoi/vue-native-websocket[Vue2 Websocket]
+
+* https://github.com/ehacinom/timeseries[Creating charts with d3js]
+* https://hatem-hassan.com/blog/Realtime-Data-Visualization-with-Peak-Detection-using-SocketIO-D3-and-React/[d3js react sample]
+* https://vuejsexamples.net/vue-js-d3-js-line-chart/[d3js vue sample]

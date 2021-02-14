@@ -3,16 +3,22 @@
     <div v-if="!loaded"><span>loading...</span></div>
     <line-chart
       v-if="loaded"
-      :chart-data="datacollection"
-      id="mychart"
+      width="1000"
+      height="300"
+      id="mylineChart"
+      type="line"
+      title="# of previous Votes"
+      :labels="[]"
+      :data="controlCabinetAirTemp"
+      :border-color="'rgba(153, 102, 255, 1)'"
+      border-width="2"
+      fill="true"
     ></line-chart>
   </div>
 </template>
 
 <script>
-import LineChart from "./LineChart.js";
-// import io from "socket.io-client";
-// var socket = io.connect("ws://localhost:8080/brewery/sensors/");
+import LineChart from "./LineChart.vue";
 
 export default {
   name: "TempChart",
@@ -23,63 +29,69 @@ export default {
     return {
       loaded: false,
       connection: null,
-      datacollection: null,
+      datacollection: {},
+      controlCabinetAirTemp: [],
+      airTemp: [],
+      flameTemp: [],
+      inpotBottomTemp: [],
+      inpotMiddleTemp: [],
+      inpotTopTemp: [],
     };
   },
   created() {
     console.log("Starting connection to WebSocket Server");
-    // this.connection = new WebSocket("ws://localhost:8080/brewery/sensors/");
-
-    // this.getRealtimeData();
-    this.fillData(1);
+    this.connection = new WebSocket("ws://localhost:8080/brewery/sensors/");
+    this.fillData();
+    this.getRealtimeData();
   },
   methods: {
-    fillData(fetchedData) {
-      console.log("fetchData=", fetchedData);
+    fillData() {
       this.datacollection = {
-        labels: [this.getRandomChartValues(), this.getRandomChartValues()],
+        //labels: [this.getRandomChartValues(), this.getRandomChartValues()],
         datasets: [
           {
-            label: "Google Stock",
+            label: "ControlCabinet Air-Temperature",
             backgroundColor: "#1A73E8",
-            data: [this.getRandomChartValues(), this.getRandomChartValues()],
+            data: this.controlCabinetAirTemp,
           },
-          {
-            label: "Microsoft Stock",
-            backgroundColor: "#2b7518",
-            data: [this.getRandomChartValues(), this.getRandomChartValues()],
-          },
+          // {
+          //   label: "Air-Temperature",
+          //   backgroundColor: "#2b7518",
+          //   data: this.airTemp,
+          // },
         ],
       };
-      this.loaded = true;
     },
     getRealtimeData() {
-      //   socket.on("newdata", (fetchedData) => {
-      //     this.fillData(fetchedData);
-      //   });
-
-      //   this.connection.onmessage = function(event) {
-      //     var jsonObj = JSON.parse(event.data);
-      //     if (jsonObj.messageType === "UPDATING_SENSOR_DATA") {
-      //       console.log("values are updated", jsonObj);
-      //     }
-      //   };
+      this.connection.onopen = function(event) {
+        console.log(event);
+        console.log("Successfully connected to the echo websocket server...");
+        this.loaded = true;
+      }.bind(this);
 
       this.connection.onmessage = function(event) {
         var jsonObj = JSON.parse(event.data);
         if (jsonObj.messageType === "UPDATING_SENSOR_DATA") {
-          console.log("values are updated", jsonObj);
-          this.fillData(jsonObj);
+          var body = JSON.parse(jsonObj.body);
+          jsonObj.body = body;
+          this.appendControlCabinetAirTemps(body.controlCabinetTemperature);
+          this.loaded = true;
+          // this.fillData(jsonObj);
         }
       }.bind(this);
-
-      this.connection.onopen = function(event) {
-        console.log(event);
-        console.log("Successfully connected to the echo websocket server...");
-      };
     },
-    getRandomChartValues() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    appendControlCabinetAirTemps(cCTemp) {
+      console.log("cCTemp :", this.datacollection.datasets[0].data);
+
+      this.controlCabinetAirTemp.push({
+        x: cCTemp.timestamp,
+        y: cCTemp.airTemp,
+      });
+
+      // this.datacollection.datasets[1].data.push({
+      //   x: cCTemp.timestamp,
+      //   y: cCTemp.controlCabinetAirTemp,
+      // });
     },
   },
 };
