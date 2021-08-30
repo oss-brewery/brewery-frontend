@@ -3,7 +3,41 @@
 </template>
 
 <script>
-import Chart from "chart.js";
+import {
+  Chart,
+  //   ArcElement,
+  LineElement,
+  //   BarElement,
+  PointElement,
+  //   BarController,
+  //   BubbleController,
+  //   DoughnutController,
+  LineController,
+  //   PieController,
+  //   PolarAreaController,
+  //   RadarController,
+  //   ScatterController,
+  CategoryScale,
+  // LinearScale,
+  LogarithmicScale,
+  //   RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  //   Decimation,
+  //   Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
+} from 'chart.js';
+
+import { shallowRef } from 'vue';
+// import { de } from 'date-fns/locale';
+// import { formatISO9075 } from 'date-fns/formatISO9075';
+// import { parseISO } from 'date-fns/parseISO';
+// import parseJSON from 'date-fns/parseJSON';
+// import format from 'date-fns/format';
+import 'chartjs-adapter-date-fns';
 
 export default {
   name: "LineChart",
@@ -18,7 +52,7 @@ export default {
     backgroundColor: String,
     borderColor: String,
     borderWidth: String,
-    data: Object,
+    datasets: Object,
   },
   data() {
     return {
@@ -27,12 +61,12 @@ export default {
   },
 
   watch: {
-    data: {
-      handler(newVal, oldVal) {
+    datasets: {
+      handler(newVal) {
         console.log("newData=", newVal);
-        console.log("oldData=", oldVal);
-        console.log("updateChart");
-        this.chart.data.datasets[0].data.push(newVal);
+        // console.log("oldData=", oldVal);
+        // console.log("updateChart");
+        this.chart.data.datasets = newVal;
         this.chart.update();
       },
       deep: true,
@@ -40,39 +74,90 @@ export default {
   },
   mounted() {
     var ctx = document.getElementById(this.id).getContext("2d");
-    this.chart = new Chart(ctx, {
-      type: this.type ? this.type : "bar",
+    Chart.register(
+      //     ArcElement,
+      LineElement,
+      //     BarElement,
+      PointElement,
+      //     BarController,
+      //     BubbleController,
+      //     DoughnutController,
+      LineController,
+      //     PieController,
+      //     PolarAreaController,
+      //     RadarController,
+      //     ScatterController,
+      CategoryScale,
+      // LinearScale,
+      LogarithmicScale,
+      //     RadialLinearScale,
+      TimeScale,
+      TimeSeriesScale,
+      //     Decimation,
+      //     Filler,
+      Legend,
+      Title,
+      Tooltip,
+      SubTitle
+    );
+    this.chart = shallowRef(new Chart(ctx, {
+      type: "line",
       data: {
         labels: this.labels,
-        datasets: [
-          {
-            label: this.title,
-            data: this.data,
-            fill: this.fill,
-            backgroundColor: this.backgroundColor,
-            borderColor: this.borderColor,
-            borderWidth: this.borderWidth ? this.borderWidth : 1,
-          },
-        ],
+        datasets: this.datasets,
       },
       options: {
+        responsive: true,
+        interaction: {
+          intersect: false,
+          axis: 'xAxis'
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: "Temperatures"
+          },
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        },
         scales: {
-          xAxes: [
-            {
-              id: "newId",
-              display: true,
-              type: "time",
+          xAxis:
+          {
+            type: "timeseries",
+            display: false,
+            time: {
+              // unit: 'second',
+              displayFormats: {
+                second: 'HH:mm:ss'
+              },
+              tooltipFormat: 'HH:mm:ss'
             },
-          ],
-          yAxes: [
-            {
+            ticks: {
+              // callback: function (value, index, values) {
+              //   console.log("value=", value)
+              //   console.log("index=", index)
+              //   console.log("values=", values)
+              //   return value;
+              // }
+            }
+          },
+
+          yAxis:
+          {
+            display: true,
+            // type: "linear",
+            type: "logarithmic",
+            title: {
               display: true,
-              type: "linear",
-            },
-          ],
+              text: 'Temp in °C'
+            }
+          },
+
         },
       },
-    });
+    }));
   },
 };
 </script>

@@ -2,6 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   <TempChart></TempChart>
+  <!-- <TestChart></TestChart> -->
   <!-- <reactive-chart></reactive-chart> -->
   <!-- <chart
     width="1000"
@@ -20,6 +21,7 @@
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
 import TempChart from "./components/TempChart.vue";
+// import TestChart from "./components/TestChart.vue";
 // import chart from "./components/LineChart";
 
 export default {
@@ -27,6 +29,7 @@ export default {
   components: {
     // HelloWorld,
     TempChart,
+    // TestChart
     // ReactiveChart,
     // chart,
   },
