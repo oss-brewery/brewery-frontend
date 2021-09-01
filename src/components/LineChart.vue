@@ -63,7 +63,7 @@ export default {
   watch: {
     datasets: {
       handler(newVal) {
-        console.log("newData=", newVal);
+        // console.log("newData=", newVal);
         // console.log("oldData=", oldVal);
         // console.log("updateChart");
         this.chart.data.datasets = newVal;
