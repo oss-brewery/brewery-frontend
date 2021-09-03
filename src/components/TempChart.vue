@@ -137,7 +137,6 @@ export default {
       }.bind(this);
     },
     buildChartEntries(wsbody) {
-      console.log("wsbody :", wsbody);
 
       // air temp
       let controlCabinetTempObj = wsbody.controlCabinetTemperature;
