@@ -46,6 +46,8 @@ export default {
       inpotMiddleTemp: [],
       inpotTopTemp: [],
       flameTemp: [],
+      debugInput1: [],
+      debugInput2: [],
       datasets: [
         {
           label: "inpot bottom",
@@ -90,6 +92,20 @@ export default {
           data: [],
           borderColor: colors[5],
           backgroundColor: colors[5],
+          borderWidth: this.borderWidth ? this.borderWidth : 3,
+        },
+        {
+          label: "debug1",
+          data: [],
+          borderColor: colors[2],
+          backgroundColor: colors[2],
+          borderWidth: this.borderWidth ? this.borderWidth : 3,
+        },
+        {
+          label: "debug2",
+          data: [],
+          borderColor: colors[2],
+          backgroundColor: colors[2],
           borderWidth: this.borderWidth ? this.borderWidth : 3,
         },
       ],
@@ -169,6 +185,21 @@ export default {
       };
       this.inpotTopTemp.push(topTempEntry)
 
+      // Debug 1
+      let debugInputsDataObj = wsbody.debugInputs;
+      let debugInputs1Entry = {
+        x: parseJSON(debugInputsDataObj.timestamp),
+        y: debugInputsDataObj.debugInput1
+      };
+      this.debugInput1.push(debugInputs1Entry)
+
+      // Debug 2
+      let debugInputs2Entry = {
+        x: parseJSON(debugInputsDataObj.timestamp),
+        y: debugInputsDataObj.debugInput2
+      };
+      this.debugInput2.push(debugInputs2Entry)
+
       // updating dataset
 
       this.datasets[0].data = this.inpotBottomTemp
@@ -177,6 +208,8 @@ export default {
       this.datasets[3].data = this.controlCabinetTemp
       this.datasets[4].data = this.airTemp
       this.datasets[5].data = this.flameTemp
+      this.datasets[6].data = this.debugInput1
+      this.datasets[7].data = this.debugInput2
 
       // console.log("cCTemp :", this.datacollection.datasets[0].data);
 

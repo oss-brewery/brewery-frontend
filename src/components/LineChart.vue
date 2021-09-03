@@ -18,8 +18,8 @@ import {
   //   RadarController,
   //   ScatterController,
   CategoryScale,
-  // LinearScale,
-  LogarithmicScale,
+  LinearScale,
+  // LogarithmicScale,
   //   RadialLinearScale,
   TimeScale,
   TimeSeriesScale,
@@ -88,8 +88,8 @@ export default {
       //     RadarController,
       //     ScatterController,
       CategoryScale,
-      // LinearScale,
-      LogarithmicScale,
+      LinearScale,
+      // LogarithmicScale,
       //     RadialLinearScale,
       TimeScale,
       TimeSeriesScale,
@@ -147,8 +147,8 @@ export default {
           yAxis:
           {
             display: true,
-            // type: "linear",
-            type: "logarithmic",
+            type: "linear",
+            // type: "logarithmic",
             title: {
               display: true,
               text: 'Temp in °C'
